@@ -5,7 +5,24 @@
 
 <script type="text/javascript">
 var nowtime_doc = document.getElementById("nowtime");
-nowtime_doc.innerHTML = "TIME " + get_message();
-
+nowtime_doc.innerHTML = "TIME " + get_message();    
 </script>
+
+<table border=1>
+    <tr>
+        <th>救い</th>
+        <th>効果</th>
+        <th>手軽さ</th>
+    </tr>
+    {% for salvation in salvations: %}
+    <!--columnという変数をセット（jinja2の変数セットにはsetが必要）  -->
+        {% set column = salvation.rstrip().split(',') %}
+        <tr>
+            <td>{{column[0]}}</td>
+            <td>{{column[1]}}</td>
+            <td>{{column[2]}}</td>
+        </tr>
+    {% endfor %}
+</table>
+
 {% endblock %}

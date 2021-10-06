@@ -1,7 +1,14 @@
-<link rel=stylesheet type=text/css href="{{ url_for('static', filename='index.css') }}">
-<script type=text/javascript src="{{ url_for('static', filename='index.js') }}"></script>
+<!DOCTYPE html>
+<html lang='ja'>
+    <head>
+        <meta charset='utf-8'>
+        <title>救いちゃん</title>
+        <link rel=stylesheet type=text/css href="{{ url_for('static', filename='index.css') }}">
+    </head>
 
-<body>
-    <h1 id="hello"> HELLOW FLASK </h1>
-    {% block time %}{% endblock %}
-</body>
+    <body>
+        <script type=text/javascript src="{{ url_for('static', filename='index.js') }}"></script>
+        <h1 id="hello">救いちゃん✋😇🤚</h1>
+        {% block time %}{% endblock %}
+    </body>
+</html>
