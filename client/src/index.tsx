@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { render } from "react-dom";
-import { FaGithub, FaTrash, FaTwitter, FaPen, FaSortAlphaDown, FaSortNumericDownAlt } from "react-icons/fa"
+import { FaGithub, FaTwitter } from "react-icons/fa"
 import MaterialTable, { Icons } from "material-table";
-import { IconType } from "react-icons/lib";
 
 import { forwardRef, Ref } from "react";
 import AddBox from "@material-ui/icons/AddBox";
@@ -21,12 +20,18 @@ import SaveAlt from "@material-ui/icons/SaveAlt";
 import Search from "@material-ui/icons/Search";
 import SvgIcon from "@material-ui/core/SvgIcon";
 import ViewColumn from "@material-ui/icons/ViewColumn";
+import Description from "@material-ui/icons/Description";
 
+const DescriptionIcon: any = Description
 
-import Delete from "@material-ui/icons/Delete";
-const EditIcon: any = Edit
-const DeleteIcon: any = Delete
-const gitIcon: any = FaGithub
+interface TableRow {
+  salvation: string;
+  financial: number;
+  time: number;
+  mental: number;
+  sustainable: number;
+  happiness: number;
+}
 
 const iconComponentByTableIconType: Record<keyof Icons, typeof SvgIcon> = {
   Add: AddBox,
@@ -61,13 +66,26 @@ const tableIcons = Object.entries(iconComponentByTableIconType).reduce(
   {}
 );
 
-
-function createRow(salvation: string, financial: number, time: number, mental: number, immediacy: number, happiness: number, sustainable: number) {
-  return { salvation, financial, time, mental, immediacy, happiness, sustainable }
-}
-
-
 const App = () => {
+  const [columns, setColumns] = useState([
+    { title: "救い", field: "salvation", type: "string" },
+    { title: "費用", field: "financial", type: "numeric" },
+    { title: "時間", field: "time", type: "numeric" },
+    { title: "精神", field: "mental", type: "numeric" },
+    { title: "即効性", field: "immediacy", type: "numeric" },
+    { title: "持続性", field: "sustainable", type: "numeric" },
+    { title: "幸福度", field: "happiness", type: "numeric" },
+  ]);
+
+  const [data, setData] = useState([
+    { salvation:"AKIBAスモーカーズ", financial:3, time:2, mental:1, immediacy:8, sustainable:4, happiness:7 },
+    { salvation:"虐殺機関", financial:10, time:2, mental:8, immediacy:1, sustainable:8, happiness:6 },
+    { salvation:"寿司", financial:1, time:1, mental:5, immediacy:10, sustainable:3, happiness:10 },
+    { salvation:"旅行", financial:1, time:1, mental:1, immediacy:1, sustainable:10, happiness:10 },
+    { salvation:"薬", financial:5, time:3, mental:3, immediacy:1, sustainable:4, happiness:5 },
+    { salvation:"酒", financial:7, time:1, mental:3, immediacy:8, sustainable:5, happiness:4 },
+  ]);
+  
   return (
     <div>
       <div className="home">
@@ -77,23 +95,39 @@ const App = () => {
           title="救い"
           columns={[
             { title: "救い", field: "salvation", type: "string" },
-            { title: "金銭", field: "financial", type: "numeric" },
+            { title: "費用", field: "financial", type: "numeric" },
             { title: "時間", field: "time", type: "numeric" },
             { title: "精神", field: "mental", type: "numeric" },
             { title: "即効性", field: "immediacy", type: "numeric" },
             { title: "持続性", field: "sustainable", type: "numeric" },
             { title: "幸福度", field: "happiness", type: "numeric" },
           ]}
-          data={[
-            createRow("AKIBAスモーカーズ",10,10,10,10,10,1),
-            createRow("呪術廻戦",10,10,10,10,10,2),
-            createRow("焼肉",10,10,10,10,10,3),
-            createRow("寿司",10,10,10,10,10,4),
-            createRow("VRChat",10,10,10,10,10,5),
-            createRow("虐殺機関",10,10,10,10,10,7),
-            createRow("最強のふたり",10,10,10,10,10,6),
-            createRow("アルコール",10,10,10,10,10,9),
-          ]}
+          data={data}
+          editable={{
+            onBulkUpdate: changes =>
+              new Promise<void>((resolve, reject) => {
+                setTimeout(() => {
+                resolve();
+              }, 1000);
+            }), 
+            onRowAdd: newData =>
+              new Promise<void>((resolve, reject) => {
+                setTimeout(() => {
+                  setData([...data, newData]);
+                  resolve();
+                }, 1000)
+              }),
+            onRowDelete: oldData =>
+              new Promise<void>((resolve, reject) => {
+                setTimeout(() => {
+                  const dataDelete = [...data];
+                  const index = 0;
+                  dataDelete.splice(index, 1);
+                  setData([...dataDelete]);
+                  resolve()
+              }, 1000)
+            }),
+          }}
           options={{
             sorting: true,
             headerStyle: {
@@ -107,14 +141,11 @@ const App = () => {
           }}
           actions={[
             {
-              icon: DeleteIcon,
-              tooltip: 'Save User',
-              onClick: (event, rowData) => alert("delete")
-            },
-            {
-              icon: gitIcon,
-              tooltip: 'edit data',
-              onClick: (event, rowData) => alert("edit")
+              icon: DescriptionIcon,
+              tooltip: 'Make .md file',
+              onClick: (event, rowData) => {
+                alert("詳細を.mdで編集できるようにする．")
+              }
             }
           ]}
           onRowClick={(event, rowData) => console.log("hoge")}
@@ -123,10 +154,10 @@ const App = () => {
       <div className="links">
         <h2>Link</h2>
         <a href="https://github.com/gen0x39/savior-bot">
-          <FaGithub size={60} color={'#444'}/>
+          <FaGithub size={50} color={'#555'}/>
         </a>
         <a href="https://twitter.com/gen0x39">
-          <FaTwitter size={60} color={'#27f'}/>
+          <FaTwitter size={50} color={'#29f'}/>
         </a>
       </div>
     </div>
