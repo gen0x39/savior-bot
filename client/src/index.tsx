@@ -1,29 +1,13 @@
 import React from "react";
 import { render } from "react-dom";
 import { FaGithub, FaTrash, FaTwitter, FaPen, FaSortAlphaDown, FaSortNumericDownAlt } from "react-icons/fa"
-import Button from '@material-ui/core/Button';
-import Table from '@material-ui/core/Table';
-
 import MaterialTable from "material-table";
-
-
-import { useHistory } from 'react-router-dom';
-
-
 
 function createRow(salvation: string, financial: number, time: number, mental: number, immediacy: number, happiness: number, sustainable: number) {
   return { salvation, financial, time, mental, immediacy, happiness, sustainable }
 }
 
 const App = () => {
-  const history = useHistory();
-
-  const plog = () => {
-    console.log("onclicked")
-  }
-  const toTwitter = () => {
-    history.push("https://twitter.com/gen0x39")
-  }
   return (
     <div>
       <div className="home">
@@ -68,14 +52,5 @@ const App = () => {
     </div>
   )
 }
-
-console.log( createRow("b",10,10,10,10,10,10))
-console.log(   {
-  code: 46000,
-  region: "鹿児島県",
-  total: 1614000,
-  male: 758000,
-  female: 856000,
-})
 
 render(<App />, document.getElementById("app"));
