@@ -26,6 +26,7 @@ import ViewColumn from "@material-ui/icons/ViewColumn";
 import Delete from "@material-ui/icons/Delete";
 const EditIcon: any = Edit
 const DeleteIcon: any = Delete
+const gitIcon: any = FaGithub
 
 const iconComponentByTableIconType: Record<keyof Icons, typeof SvgIcon> = {
   Add: AddBox,
@@ -111,7 +112,7 @@ const App = () => {
               onClick: (event, rowData) => alert("delete")
             },
             {
-              icon: EditIcon,
+              icon: gitIcon,
               tooltip: 'edit data',
               onClick: (event, rowData) => alert("edit")
             }
@@ -122,10 +123,10 @@ const App = () => {
       <div className="links">
         <h2>Link</h2>
         <a href="https://github.com/gen0x39/savior-bot">
-          <FaGithub size={60} color={'#ccc'}/>
+          <FaGithub size={60} color={'#444'}/>
         </a>
         <a href="https://twitter.com/gen0x39">
-          <FaTwitter size={60} color={'#ccc'}/>
+          <FaTwitter size={60} color={'#27f'}/>
         </a>
       </div>
     </div>
